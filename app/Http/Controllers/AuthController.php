@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\AuthRequest;
+use App\Http\Requests\RegistrationRequest;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+class AuthController extends Controller
+{
+    /**
+     * @param RegistrationRequest $request
+     * @return JsonResponse
+     */
+    public function registration(RegistrationRequest $request)
+    {
+        /** @var User $user */
+        $user = User::query()->create($request->validated());
+
+        return response()->json(['data' => [
+            'user'=> [
+                'name'=> $user->fullName,
+                'email'=> $user->email,
+                ],
+            'code' => 201,
+            'message' => "Пользователь создан"
+            ]
+        ], 201);
+    }
+
+
+    /**
+     * @param AuthRequest $request
+     * @return JsonResponse
+     */
+    public function authorization(AuthRequest $request)
+    {
+        if(auth()->attempt($request->validated()))
+        {
+            /** @var User $user */
+            $user = auth()->user();
+            return response()->json(['data' => [
+                'user'=> [
+                    'name'=> $user->fullName,
+                    'birth_date' => $user->birth_date,
+                    'email'=> $user->email,
+                ],
+                'token' => $user->createToken('token')->plainTextToken
+            ]]);
+        }
+//        "user": {
+//        "id": 1,
+//            "name": "Alexey Ivanovich Smirnov",
+//            "birth_date": "2001-02-15",
+//            "email": "user@prof.ru"
+//        },
+//        "token": <сгенерированный токен>
+        return response()->json(['data' => [
+            "code" => 401,
+            "message" => "Login failed"
+        ]], 401);
+    }
+
+    /**
+     * @return Response
+     */
+    public function logout()
+    {
+        auth()->user()->currentAccessToken()->delete();
+        return response()->noContent();
+    }
+}
+

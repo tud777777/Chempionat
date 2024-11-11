@@ -13,4 +13,5 @@ Route::get('/flight',GagarinController::class);
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/logout',[AuthController::class,'logout']);
     Route::post('/lunar-missions',[LunarMissionController::class,'store']);
+    Route::get('/lunar-missions',[LunarMissionController::class,'index']);
 });

@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         return response()->json(['data' => [
             'user'=> [
-                'name'=> $user->fullName,
+                'name'=> $user->first_name.' '.$user->last_name.' '.$user->patronymic,
                 'email'=> $user->email,
                 ],
             'code' => 201,

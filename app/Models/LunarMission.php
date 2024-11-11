@@ -4,6 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property array $launch_details
+ * @property array $landing_details
+ * @property array $spacecraft
+ * @property int $user_id
+ */
 class LunarMission extends Model
 {
     protected $fillable = [

@@ -5,9 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use phpDocumentor\Reflection\Types\Collection;
 
 /**
  *@property int $id
@@ -19,6 +21,7 @@ use Laravel\Sanctum\HasApiTokens;
  *@property string $birth_date
  *
  * @property-read string $fullName
+ * @property-read \Illuminate\Database\Eloquent\Collection<LunarMission> $lunarMissions
  */
 class User extends Authenticatable
 {
@@ -49,6 +52,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function lunarMissions(): HasMany
+    {
+        return $this->hasMany(LunarMission::class, 'user_id', 'id');
+    }
     /**
      * Get the attributes that should be cast.
      *
@@ -62,6 +69,9 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * @return Attribute
+     */
     public function fullName(): Attribute
     {
         return Attribute::get(function (){

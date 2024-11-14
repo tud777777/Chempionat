@@ -5,13 +5,11 @@ namespace App\Http\Resources;
 use App\Models\LunarMission;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+/**
+ * @mixin LunarMission
+ */
 class LunarMissionResource extends JsonResource
 {
-    /**
-     * @mixin LunarMission
-     */
-
     /**
      * Transform the resource into an array.
      *
@@ -22,6 +20,7 @@ class LunarMissionResource extends JsonResource
         self::$wrap = false;
         return [
             'mission' => [
+                'author' => UserResource::make($this->author),
                 'name' => $this->name,
                 'launch_details' => $this->launch_details,
                 'landing_details' => $this->landing_details,

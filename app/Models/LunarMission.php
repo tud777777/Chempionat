@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array $landing_details
  * @property array $spacecraft
  * @property int $user_id
+ * @property-read User $author
  */
 class LunarMission extends Model
 {
@@ -28,4 +30,12 @@ class LunarMission extends Model
         'landing_details' => 'json',
         'spacecraft' => 'json',
     ];
+
+    /**
+     * @return HasOne
+     */
+    public function author(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

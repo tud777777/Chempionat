@@ -36,7 +36,7 @@ class AuthController extends Controller
      * @param AuthRequest $request
      * @return JsonResponse
      */
-    public function authorization(AuthRequest $request)
+    public function authorization(AuthRequest $request): JsonResponse
     {
         if(auth()->attempt($request->validated()))
         {
@@ -51,13 +51,7 @@ class AuthController extends Controller
                 'token' => $user->createToken('token')->plainTextToken
             ]]);
         }
-//        "user": {
-//        "id": 1,
-//            "name": "Alexey Ivanovich Smirnov",
-//            "birth_date": "2001-02-15",
-//            "email": "user@prof.ru"
-//        },
-//        "token": <сгенерированный токен>
+
         return response()->json(['data' => [
             "code" => 401,
             "message" => "Login failed"

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: MySQL-8.2
--- Время создания: Ноя 14 2024 г., 21:34
+-- Время создания: Ноя 15 2024 г., 14:27
 -- Версия сервера: 8.2.0
 -- Версия PHP: 8.3.6
 
@@ -117,7 +117,7 @@ CREATE TABLE `job_batches` (
 
 CREATE TABLE `lunar_missions` (
   `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `launch_details` json NOT NULL,
   `landing_details` json NOT NULL,
   `spacecraft` json NOT NULL,
@@ -131,7 +131,8 @@ CREATE TABLE `lunar_missions` (
 --
 
 INSERT INTO `lunar_missions` (`id`, `name`, `launch_details`, `landing_details`, `spacecraft`, `user_id`, `created_at`, `updated_at`) VALUES
-(4, 'Apolo-18', '{\"launch_date\": \"1972-12-07\", \"launch_site\": {\"name\": \"Kennedy Space Center\", \"location\": {\"latitude\": 28.5721, \"longitude\": -80.648}}}', '{\"landing_date\": \"1972-12-19\", \"landing_site\": {\"name\": \"Taurus-Littrov\", \"coordinates\": {\"latitude\": 20.1908, \"longitude\": 30.7717}}}', '{\"crew\": [{\"name\": \"Evgeniy Cernan\", \"role\": \"Commander\"}, {\"name\": \"Harrison Schmitt\", \"role\": \"Lunar module pilot\"}, {\"name\": \"Ronald Evans\", \"role\": \"Lunar module pilot\"}], \"lunar_module\": \"Challenger\", \"command_module\": \"America\"}', 5, '2024-11-12 14:06:25', '2024-11-14 10:15:10');
+(4, 'Apolo-18', '{\"launch_date\": \"1972-12-07\", \"launch_site\": {\"name\": \"Kennedy Space Center\", \"location\": {\"latitude\": 28.5721, \"longitude\": -80.648}}}', '{\"landing_date\": \"1972-12-19\", \"landing_site\": {\"name\": \"Taurus-Littrov\", \"coordinates\": {\"latitude\": 20.1908, \"longitude\": 30.7717}}}', '{\"crew\": [{\"name\": \"Evgeniy Cernan\", \"role\": \"Commander\"}, {\"name\": \"Harrison Schmitt\", \"role\": \"Lunar module pilot\"}, {\"name\": \"Ronald Evans\", \"role\": \"Lunar module pilot\"}], \"lunar_module\": \"Challenger\", \"command_module\": \"America\"}', 5, '2024-11-12 14:06:25', '2024-11-14 10:15:10'),
+(5, 'Фpollo-17', '{\"launch_date\": \"1972-12-07\", \"launch_site\": {\"name\": \"Kennedy Space Center\", \"location\": {\"latitude\": 28.5721, \"longitude\": -80.648}}}', '{\"landing_date\": \"1972-12-19\", \"landing_site\": {\"name\": \"Taurus-Littrov\", \"coordinates\": {\"latitude\": 20.1908, \"longitude\": 30.7717}}}', '{\"crew\": [{\"name\": \"Evgeniy Cernan\", \"role\": \"Commander\"}, {\"name\": \"Harrison Schmitt\", \"role\": \"Lunar module pilot\"}, {\"name\": \"Ronald Evans\", \"role\": \"Lunar module pilot\"}], \"lunar_module\": \"Challenger\", \"command_module\": \"America\"}', 7, '2024-11-15 07:32:25', '2024-11-15 07:32:25');
 
 -- --------------------------------------------------------
 
@@ -157,7 +158,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2024_11_10_133315_create_gagarin_flights_table', 2),
 (10, '2024_11_11_065154_create_gagarin_flights_table', 3),
 (11, '2024_11_11_080646_create_lunar_missions_table', 3),
-(12, '2024_11_14_140929_create_space_flights_table', 4);
+(12, '2024_11_14_140929_create_space_flights_table', 4),
+(13, '2024_11_15_080151_create_user_flights_table', 5);
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,8 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (4, 'App\\Models\\User', 5, 'token', 'acd22ab0218770035f7ab6d7e48f270d03136451734a6569ca147841a4ee6eea', '[\"*\"]', NULL, NULL, '2024-11-08 08:05:49', '2024-11-08 08:05:49'),
 (5, 'App\\Models\\User', 5, 'token', '6c76d69be1f061a35f59ed48ee315d39f1dadda762f6cdd498a98d684e0bc738', '[\"*\"]', NULL, NULL, '2024-11-08 08:06:21', '2024-11-08 08:06:21'),
 (6, 'App\\Models\\User', 5, 'token', '627288bf5bd0577774cbb94acc4fa15edc8450da97b7cd9a8a421addc2b560ad', '[\"*\"]', '2024-11-14 15:03:25', NULL, '2024-11-12 11:13:50', '2024-11-14 15:03:25'),
-(7, 'App\\Models\\User', 7, 'token', 'c384ef9512da99e023d687ac60a19804fa7b2e16f2e83e87cc9d7bfbf5a19874', '[\"*\"]', NULL, NULL, '2024-11-14 10:11:50', '2024-11-14 10:11:50');
+(7, 'App\\Models\\User', 7, 'token', 'c384ef9512da99e023d687ac60a19804fa7b2e16f2e83e87cc9d7bfbf5a19874', '[\"*\"]', NULL, NULL, '2024-11-14 10:11:50', '2024-11-14 10:11:50'),
+(8, 'App\\Models\\User', 7, 'token', '0ae02e2e27806fd686f30f1c7ab04587ad2185dd31acb4d00cf2943228753ad1', '[\"*\"]', '2024-11-15 08:07:36', NULL, '2024-11-15 05:28:02', '2024-11-15 08:07:36');
 
 -- --------------------------------------------------------
 
@@ -234,9 +237,9 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `space_flights` (
   `id` bigint UNSIGNED NOT NULL,
-  `flight_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `destination` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `launch_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `flight_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `destination` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `launch_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `seats_available` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -247,7 +250,8 @@ CREATE TABLE `space_flights` (
 --
 
 INSERT INTO `space_flights` (`id`, `flight_number`, `destination`, `launch_date`, `seats_available`, `created_at`, `updated_at`) VALUES
-(1, 'SFF', 'Mars', '2020-02-02', 2, '2024-11-14 11:53:11', '2024-11-14 11:53:11');
+(1, 'SFF', 'Mars', '2020-02-02', 2, '2024-11-14 11:53:11', '2024-11-14 11:53:11'),
+(2, 'ФФФ', 'ФФФ', '2020-12-12', 2, '2024-11-15 08:07:37', '2024-11-15 08:07:37');
 
 -- --------------------------------------------------------
 
@@ -280,6 +284,28 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `patronymic`, `email`, `pa
 (5, 'first', 'last', 'pat', 'meel@mail.ru', '$2y$12$dZ1SwaXGHRdjXWv9vPb.yOgA2VBEcxfb0dAN1w10DFXXdRlSCdeNq', '2000-04-04', NULL, '2024-11-08 06:01:36', '2024-11-08 06:01:36'),
 (6, 'first', 'last', 'pat', 'meeeel@mail.ru', '$2y$12$BJeSAIGHBDOghJlFiDVp0uF1ChTclCJeFYyBTBuwsa139Qcv2w.jW', '2000-04-04', NULL, '2024-11-12 11:13:41', '2024-11-12 11:13:41'),
 (7, 'first', 'last', 'pat', 'meeeeel@mail.ru', '$2y$12$5fLAulwYNWMKCHjGyF/AP.raDU7HaDI52HukOwXxNSHm71RKSTEPO', '2000-04-04', NULL, '2024-11-14 10:11:43', '2024-11-14 10:11:43');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `user_flights`
+--
+
+CREATE TABLE `user_flights` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `flight_id` bigint UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `user_flights`
+--
+
+INSERT INTO `user_flights` (`id`, `user_id`, `flight_id`, `created_at`, `updated_at`) VALUES
+(1, 7, 1, '2024-11-15 05:39:59', '2024-11-15 05:39:59'),
+(2, 7, 1, '2024-11-15 05:44:28', '2024-11-15 05:44:28');
 
 --
 -- Индексы сохранённых таблиц
@@ -372,6 +398,14 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Индексы таблицы `user_flights`
+--
+ALTER TABLE `user_flights`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_flights_user_id_foreign` (`user_id`),
+  ADD KEY `user_flights_flight_id_foreign` (`flight_id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -397,31 +431,37 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT для таблицы `lunar_missions`
 --
 ALTER TABLE `lunar_missions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT для таблицы `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `space_flights`
 --
 ALTER TABLE `space_flights`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT для таблицы `user_flights`
+--
+ALTER TABLE `user_flights`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -432,6 +472,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `lunar_missions`
   ADD CONSTRAINT `lunar_missions_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `user_flights`
+--
+ALTER TABLE `user_flights`
+  ADD CONSTRAINT `user_flights_flight_id_foreign` FOREIGN KEY (`flight_id`) REFERENCES `space_flights` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_flights_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

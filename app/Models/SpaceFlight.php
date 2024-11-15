@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -20,4 +21,11 @@ class SpaceFlight extends Model
         'seats_available',
     ];
 
+    /**
+     * @return HasMany
+     */
+    public function books(): HasMany
+    {
+        return $this->hasMany(UserFlight::class, 'flight_id', 'id');
+    }
 }

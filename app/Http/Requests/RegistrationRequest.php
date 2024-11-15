@@ -14,11 +14,11 @@ class RegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'patronymic' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255|regex:/^[А-ЯЁA-Z]/u',
+            'last_name' => 'required|string|max:255|regex:/^[А-ЯЁA-Z]/u',
+            'patronymic' => 'required|string|max:255|regex:/^[А-ЯЁA-Z]/u',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:3',
+            'password' => 'required|string|min:3|regex:/^(?=.{3,})(?=.*[a-zA-Z])(?=.*\d)$/',
             'birth_date' => 'required|string|max:255',
         ];
     }

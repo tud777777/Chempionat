@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GagarinController;
 use App\Http\Controllers\LunarMissionController;
 use App\Http\Controllers\SpaceFlightController;
+use App\Http\Controllers\WatermarkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,7 @@ Route::get('/search',[LunarMissionController::class,'search']);
 Route::get('/space-flights',[SpaceFlightController::class,'index']);
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/space-flights',[SpaceFlightController::class,'store']);
+    Route::post('/lunar-watermark', WatermarkController::class);
     Route::post('/book-flight',[SpaceFlightController::class,'book']);
     Route::get('/logout',[AuthController::class,'logout']);
     Route::post('/lunar-missions',[LunarMissionController::class,'store']);

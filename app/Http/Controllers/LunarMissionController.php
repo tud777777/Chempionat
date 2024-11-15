@@ -81,7 +81,7 @@ class LunarMissionController extends Controller
         $query = request()->input('query','');
         $mission = LunarMission::query()
             ->where('name','like','%'.$query.'%')
-            ->orWhereJsonContains('spacecraft->crew', [["name" => $query]])
+            ->orWhere('spacecraft', '%'.$query.'%')
             ->get();
         return SearchMissionResource::collection($mission);
     }

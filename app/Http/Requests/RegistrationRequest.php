@@ -18,7 +18,7 @@ class RegistrationRequest extends FormRequest
             'last_name' => 'required|string|max:255|regex:/^[А-ЯЁA-Z]/u',
             'patronymic' => 'required|string|max:255|regex:/^[А-ЯЁA-Z]/u',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:3|regex:/^(?=.{3,})(?=.*[a-zA-Z])(?=.*\d)$/',
+            'password' => 'required|string|min:3',
             'birth_date' => 'required|string|max:255',
         ];
     }

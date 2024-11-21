@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Models\User;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 class AuthController extends Controller
 {
@@ -52,10 +55,7 @@ class AuthController extends Controller
             ]]);
         }
 
-        return response()->json(['data' => [
-            "code" => 401,
-            "message" => "Login failed"
-        ]], 401);
+        return throw new AuthenticationException();
     }
 
     /**

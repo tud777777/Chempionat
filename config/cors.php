@@ -15,9 +15,9 @@ return [
     |
     */
 
-    'paths' => ['api-kosmos/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => ['POST, GET, OPTIONS, PUT, DELETE'],
 
     'allowed_origins' => ['*'],
 

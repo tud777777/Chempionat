@@ -10,9 +10,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/registration',[AuthController::class,'registration']);
 Route::post('/authorization',[AuthController::class,'authorization']);
-Route::get('/gagarin-flight',GagarinController::class);
-Route::get('/flight',function (){
-    return json_decode('{
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::get('/gagarin-flight',GagarinController::class);
+    Route::get('/flight',function (){
+        return json_decode('{
     "data": {
         "name": " Apollo-11",
         "crew_capacity": 3,
@@ -49,12 +51,11 @@ Route::get('/flight',function (){
     }
 }
 ');
-});
-Route::get('/lunar-missions',[LunarMissionController::class,'index']);
-Route::get('/lunar-missions/{mission}',[LunarMissionController::class,'show']);
-Route::get('/search',[LunarMissionController::class,'search']);
-Route::get('/space-flights',[SpaceFlightController::class,'index']);
-Route::middleware('auth:sanctum')->group(function(){
+    });
+    Route::get('/lunar-missions',[LunarMissionController::class,'index']);
+    Route::get('/lunar-missions/{mission}',[LunarMissionController::class,'show']);
+    Route::get('/search',[LunarMissionController::class,'search']);
+    Route::get('/space-flights',[SpaceFlightController::class,'index']);
     Route::post('/space-flights',[SpaceFlightController::class,'store']);
     Route::post('/lunar-watermark', WatermarkController::class);
     Route::post('/book-flight',[SpaceFlightController::class,'book']);

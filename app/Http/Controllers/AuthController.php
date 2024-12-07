@@ -51,6 +51,7 @@ class AuthController extends Controller
                     'birth_date' => $user->birth_date,
                     'email'=> $user->email,
                 ],
+                'id' => $user->id,
                 'token' => $user->createToken('token')->plainTextToken
             ]]);
         }

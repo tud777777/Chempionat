@@ -20,6 +20,7 @@ class LunarMissionResource extends JsonResource
         self::$wrap = false;
         return [
             'mission' => [
+                'id' => $this->id,
                 'author' => UserResource::make($this->author),
                 'name' => $this->name,
                 'launch_details' => $this->launch_details,
